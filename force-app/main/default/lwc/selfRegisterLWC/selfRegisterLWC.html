@@ -1,0 +1,853 @@
+<template>
+    <div class="slds-align_absolute-center slds-m-top_medium">
+        <div class="slds-large-size_9-of-12 slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-text-heading_medium"><strong>Register New Account</strong></div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-p-top_xx-small">Have questions? Reach us @ <a href="mailto:onlinesupport@mrcglobal.com">onlinesupport@mrcglobal.com</a></div>
+            <div class="slds-col slds-size_1-of-1 slds-text-align_left slds-m-top_small"><strong>Register Account</strong></div>
+            <div class="slds-col slds-size_1-of-1"><hr class="slds-m-top_xx-small slds-m-bottom_x-small"></hr></div>
+            <div class="slds-col slds-size_1-of-1 slds-text-align_left slds-m-top_xx-small slds-m-bottom_x-small">
+                <fieldset class="slds-form-element">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-6">
+                            <legend class="slds-form-element__legend slds-form-element__label slds-p-around_none">Are You Registering for?</legend>
+                        </div>
+                        <div class="slds-form-element__control slds-col slds-size_1-of-1 slds-medium-size_5-of-6" style="display: inline;">
+                            <span class="slds-radio slds-m-left_medium" style="display: inline;">
+                                <input type="radio" id="customerRadioButton" name="customerSupplierRadioButton" data-id="customerRadioButton" value="customer" checked={customerRadioButton} onclick={handleAccountTypeChange} />
+                                <label class="slds-radio__label" for="customerRadioButton">
+                                    <span class="slds-radio_faux"></span>
+                                    <span class="slds-form-element__label">Customer</span>
+                                </label>
+                            </span>
+                            <span class="slds-radio slds-m-left_large" style="display: inline;">
+                                <input type="radio" id="supplierRadioButton" name="customerSupplierRadioButton" data-id="supplierRadioButton" value="vendor" checked={supplierRadioButton} onclick={handleAccountTypeChange} />
+                                <label class="slds-radio__label" for="supplierRadioButton">
+                                    <span class="slds-radio_faux"></span>
+                                    <span class="slds-form-element__label">Supplier</span>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div if:true={showError} class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-text-heading_medium" id="error">
+                <p>{errorMessage}</p>
+            </div>        
+
+            <div class="slds-size_1-of-1 slds-grid slds-wrap slds-box slds-gutters_direct slds-m-left_xxx-small slds-m-right_xx-small">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-m-bottom_small slds-order_2 slds-large-order_1">
+                    <label>First Name</label>
+                    <abbr title="required" class="slds-required">*</abbr>
+                    <lightning-input label="First Name" placeholder="Enter First Name" variant="label-hidden" data-id="firstName" name='firstName' onchange={handleChange} onkeyup={onKeyUp} required value={firstName}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-m-bottom_small slds-order_3 slds-large-order_2">
+                    <label>Last Name</label>
+                    <abbr title="required" class="slds-required">*</abbr>
+                    <lightning-input label="Last Name" placeholder="Enter Last Name" variant="label-hidden" data-id="lastName" name='lastName' onchange={handleChange} onkeyup={onKeyUp} required value={lastName}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-m-bottom_small slds-order_1 slds-large-order_3">
+                    <span class="slds-required">*</span> Required details
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_10-of-12 slds-m-bottom_small slds-order_4">
+                    <label>Email</label>
+                    <abbr title="required" class="slds-required">*</abbr>
+                    <lightning-input label="Email" placeholder="Enter Email" variant="label-hidden" data-id="email" name='email'  onchange={handleChange} onkeyup={onKeyUp} required type="email" value={email}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-m-bottom_small slds-order_5">
+                    <label>Phone</label>
+                    <abbr title="required" class="slds-required">*</abbr>
+                    <lightning-input label="Phone" placeholder="***-***-***" variant="label-hidden" data-id="phone" name='phone' onchange={handleChange} onkeyup={onKeyUp} required type="tel" value={phone}></lightning-input>
+                </div>
+                <div if:false={supplierRadioButton} class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-m-bottom_small slds-order_6">
+                    <div style="display:block;">
+                        <label>Country</label>
+                        <abbr title="required" class="slds-required">*</abbr>
+                    </div>
+                    <select required name="ddlcountry" id="ddlcountry" data-id='ddlcountry' class="slds-select" onchange={handleChange}>
+                        <option value="">Please Select</option>
+                        <option value="US" selected>United States</option>
+                        <option value="CA">Canada</option>
+                        <option value="AF">Afghanistan</option>
+                        <option value="AL">Albania</option>
+                        <option value="DZ">Algeria</option>
+                        <option value="AS">American Samoa</option>
+                        <option value="AD">Andorra</option>
+                        <option value="AO">Angola</option>
+                        <option value="AI">Anguilla</option>
+                        <option value="AQ">Antarctica</option>
+                        <option value="AG">Antigua and Barbuda</option>
+                        <option value="AR">Argentina</option>
+                        <option value="AM">Armenia</option>
+                        <option value="AW">Aruba</option>
+                        <option value="AU">Australia</option>
+                        <option value="AT">Austria</option>
+                        <option value="AZ">Azerbaijan</option>
+                        <option value="BS">Bahamas</option>
+                        <option value="BH">Bahrain</option>
+                        <option value="BD">Bangladesh</option>
+                        <option value="BB">Barbados</option>
+                        <option value="BY">Belarus</option>
+                        <option value="BE">Belgium</option>
+                        <option value="BZ">Belize</option>
+                        <option value="BJ">Benin</option>
+                        <option value="BM">Bermuda</option>
+                        <option value="BT">Bhutan</option>
+                        <option value="BO">Bolivia, Plurinational State of</option>
+                        <option value="BA">Bosnia and Herzegovina</option>
+                        <option value="BW">Botswana</option>
+                        <option value="BV">Bouvet Island</option>
+                        <option value="BR">Brazil</option>
+                        <option value="IO">British Indian Ocean Territory</option>
+                        <option value="BN">Brunei Darussalam</option>
+                        <option value="BG">Bulgaria</option>
+                        <option value="BF">Burkina Faso</option>
+                        <option value="BI">Burundi</option>
+                        <option value="KH">Cambodia</option>
+                        <option value="CM">Cameroon</option>
+                        <option value="CV">Cape Verde</option>
+                        <option value="KY">Cayman Islands</option>
+                        <option value="CF">Central African Republic</option>
+                        <option value="TD">Chad</option>
+                        <option value="CL">Chile</option>
+                        <option value="CN">China</option>
+                        <option value="CX">Christmas Island</option>
+                        <option value="CC">Cocos (Keeling) Islands</option>
+                        <option value="CO">Colombia</option>
+                        <option value="KM">Comoros</option>
+                        <option value="CG">Congo</option>
+                        <option value="CD">Congo, the Democratic Republic of the</option>
+                        <option value="CK">Cook Islands</option>
+                        <option value="CR">Costa Rica</option>
+                        <option value="CI">Côte d'Ivoire</option>
+                        <option value="HR">Croatia</option>
+                        <option value="CU">Cuba</option>
+                        <option value="CY">Cyprus</option>
+                        <option value="CZ">Czech Republic</option>
+                        <option value="DK">Denmark</option>
+                        <option value="DJ">Djibouti</option>
+                        <option value="DM">Dominica</option>
+                        <option value="DO">Dominican Republic</option>
+                        <option value="TP">East Timor</option>
+                        <option value="EC">Ecuador</option>
+                        <option value="EG">Egypt</option>
+                        <option value="SV">El Salvador</option>
+                        <option value="GQ">Equatorial Guinea</option>
+                        <option value="ER">Eritrea</option>
+                        <option value="EE">Estonia</option>
+                        <option value="ET">Ethiopia</option>
+                        <option value="FK">Falkland Islands (Malvinas)</option>
+                        <option value="FO">Faroe Islands</option>
+                        <option value="FJ">Fiji</option>
+                        <option value="FI">Finland</option>
+                        <option value="FR">France</option>
+                        <option value="GF">French Guiana</option>
+                        <option value="PF">French Polynesia</option>
+                        <option value="TF">French Southern Territories</option>
+                        <option value="GA">Gabon</option>
+                        <option value="GM">Gambia</option>
+                        <option value="GE">Georgia</option>
+                        <option value="DE">Germany</option>
+                        <option value="GH">Ghana</option>
+                        <option value="GI">Gibraltar</option>
+                        <option value="GR">Greece</option>
+                        <option value="GL">Greenland</option>
+                        <option value="GD">Grenada</option>
+                        <option value="GP">Guadeloupe</option>
+                        <option value="GU">Guam</option>
+                        <option value="GT">Guatemala</option>
+                        <option value="GN">Guinea</option>
+                        <option value="GW">Guinea-Bissau</option>
+                        <option value="GY">Guyana</option>
+                        <option value="HT">Haiti</option>
+                        <option value="HM">Heard Island and McDonald Islands</option>
+                        <option value="VA">Holy See (Vatican City State)</option>
+                        <option value="HN">Honduras</option>
+                        <option value="HK">Hong Kong</option>
+                        <option value="HU">Hungary</option>
+                        <option value="IS">Iceland</option>
+                        <option value="IN">India</option>
+                        <option value="ID">Indonesia</option>
+                        <option value="IR">Iran, Islamic Republic of</option>
+                        <option value="IQ">Iraq</option>
+                        <option value="IE">Ireland</option>
+                        <option value="IL">Israel</option>
+                        <option value="IT">Italy</option>
+                        <option value="JM">Jamaica</option>
+                        <option value="JP">Japan</option>
+                        <option value="JO">Jordan</option>
+                        <option value="KZ">Kazakhstan</option>
+                        <option value="KE">Kenya</option>
+                        <option value="KI">Kiribati</option>
+                        <option value="KP">Korea, Democratic People's Republic of</option>
+                        <option value="KR">Korea, Republic of</option>
+                        <option value="KW">Kuwait</option>
+                        <option value="KG">Kyrgyzstan</option>
+                        <option value="LA">Lao People's Democratic Republic</option>
+                        <option value="LV">Latvia</option>
+                        <option value="LB">Lebanon</option>
+                        <option value="LS">Lesotho</option>
+                        <option value="LR">Liberia</option>
+                        <option value="LY">Libya</option>
+                        <option value="LI">Liechtenstein</option>
+                        <option value="LT">Lithuania</option>
+                        <option value="LU">Luxembourg</option>
+                        <option value="MO">Macao</option>
+                        <option value="MK">Macedonia, the former Yugoslav Republic of</option>
+                        <option value="MG">Madagascar</option>
+                        <option value="MW">Malawi</option>
+                        <option value="MY">Malaysia</option>
+                        <option value="MV">Maldives</option>
+                        <option value="ML">Mali</option>
+                        <option value="MT">Malta</option>
+                        <option value="MH">Marshall Islands</option>
+                        <option value="MQ">Martinique</option>
+                        <option value="MR">Mauritania</option>
+                        <option value="MU">Mauritius</option>
+                        <option value="YT">Mayotte</option>
+                        <option value="MX">Mexico</option>
+                        <option value="FM">Micronesia, Federated States of</option>
+                        <option value="MD">Moldova, Republic of</option>
+                        <option value="MC">Monaco</option>
+                        <option value="MN">Mongolia</option>
+                        <option value="MS">Montserrat</option>
+                        <option value="MA">Morocco</option>
+                        <option value="MZ">Mozambique</option>
+                        <option value="MM">Myanmar</option>
+                        <option value="NA">Namibia</option>
+                        <option value="NR">Nauru</option>
+                        <option value="NP">Nepal</option>
+                        <option value="NL">Netherlands</option>
+                        <option value="AN">Netherlands Antilles</option>
+                        <option value="NC">New Caledonia</option>
+                        <option value="NZ">New Zealand</option>
+                        <option value="NI">Nicaragua</option>
+                        <option value="NE">Niger</option>
+                        <option value="NG">Nigeria</option>
+                        <option value="NU">Niue</option>
+                        <option value="NF">Norfolk Island</option>
+                        <option value="MP">Northern Mariana Islands</option>
+                        <option value="NO">Norway</option>
+                        <option value="OM">Oman</option>
+                        <option value="PK">Pakistan</option>
+                        <option value="PW">Palau</option>
+                        <option value="PS">Palestinian Territory, Occupied</option>
+                        <option value="PA">Panama</option>
+                        <option value="PG">Papua New Guinea</option>
+                        <option value="PY">Paraguay</option>
+                        <option value="PE">Peru</option>
+                        <option value="PH">Philippines</option>
+                        <option value="PN">Pitcairn</option>
+                        <option value="PL">Poland</option>
+                        <option value="PT">Portugal</option>
+                        <option value="PR">Puerto Rico</option>
+                        <option value="QA">Qatar</option>
+                        <option value="RE">Réunion</option>
+                        <option value="RO">Romania</option>
+                        <option value="RU">Russian Federation</option>
+                        <option value="RW">Rwanda</option>
+                        <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+                        <option value="KN">Saint Kitts and Nevis</option>
+                        <option value="LC">Saint Lucia</option>
+                        <option value="PM">Saint Pierre and Miquelon</option>
+                        <option value="VC">Saint Vincent and the Grenadines</option>
+                        <option value="WS">Samoa</option>
+                        <option value="SM">San Marino</option>
+                        <option value="ST">Sao Tome and Principe</option>
+                        <option value="SA">Saudi Arabia</option>
+                        <option value="SN">Senegal</option>
+                        <option value="SC">Seychelles</option>
+                        <option value="SL">Sierra Leone</option>
+                        <option value="SG">Singapore</option>
+                        <option value="SK">Slovakia</option>
+                        <option value="SI">Slovenia</option>
+                        <option value="SB">Solomon Islands</option>
+                        <option value="SO">Somalia</option>
+                        <option value="ZA">South Africa</option>
+                        <option value="GS">South Georgia and the South Sandwich Islands</option>
+                        <option value="ES">Spain</option>
+                        <option value="LK">Sri Lanka</option>
+                        <option value="SD">Sudan</option>
+                        <option value="SR">Suriname</option>
+                        <option value="SJ">Svalbard and Jan Mayen</option>
+                        <option value="SZ">Swaziland</option>
+                        <option value="SE">Sweden</option>
+                        <option value="CH">Switzerland</option>
+                        <option value="SY">Syrian Arab Republic</option>
+                        <option value="TW">Taiwan, Province of China</option>
+                        <option value="TJ">Tajikistan</option>
+                        <option value="TZ">Tanzania, United Republic of</option>
+                        <option value="TH">Thailand</option>
+                        <option value="TG">Togo</option>
+                        <option value="TK">Tokelau</option>
+                        <option value="TO">Tonga</option>
+                        <option value="TT">Trinidad and Tobago</option>
+                        <option value="TN">Tunisia</option>
+                        <option value="TR">Turkey</option>
+                        <option value="TM">Turkmenistan</option>
+                        <option value="TC">Turks and Caicos Islands</option>
+                        <option value="TV">Tuvalu</option>
+                        <option value="UG">Uganda</option>
+                        <option value="UA">Ukraine</option>
+                        <option value="AE">United Arab Emirates</option>
+                        <option value="GB">United Kingdom</option>
+                        <option value="UM">United States Minor Outlying Islands</option>
+                        <option value="UY">Uruguay</option>
+                        <option value="UZ">Uzbekistan</option>
+                        <option value="VU">Vanuatu</option>
+                        <option value="VE">Venezuela, Bolivarian Republic of</option>
+                        <option value="VN">Viet Nam</option>
+                        <option value="VG">Virgin Islands, British</option>
+                        <option value="VI">Virgin Islands, U.S.</option>
+                        <option value="WF">Wallis and Futuna</option>
+                        <option value="EH">Western Sahara</option>
+                        <option value="YE">Yemen</option>
+                        <option value="YU">Yugoslavia</option>
+                        <option value="ZM">Zambia</option>
+                        <option value="ZW">Zimbabwe</option>
+                    </select>
+                </div>
+                <!-- <div if:false={supplierRadioButton} class="slds-col slds-size_1-of-1 slds-order_6">
+                    <lightning-input type="checkbox" label="Save a credit card for purchases" id="noCC"  name="noCC" data-id="noCC" onchange={handleChangeCreditCard} disabled={disableCreditCardCheckbox} checked={isCreditCardChecked}></lightning-input>
+                </div> -->
+                <div if:true={supplierRadioButton} class="slds-col slds-size_1-of-1 slds-medium-size_10-of-12 slds-order_7">
+                    <lightning-textarea data-id="poNumbers" 
+                        name="poNumbers" label="Recent PO Numbers issued by MRC Global(Comma Separated)" 
+                        onchange={handleChange} required 
+                        value={poNumbers}>
+                    </lightning-textarea>
+                </div>
+            </div>
+            
+            <div if:true={supplierRadioButton} class="slds-size_1-of-1 slds-grid slds-wrap slds-m-around_none">
+                <div class="slds-size_1-of-1 slds-text-align_left slds-m-top_large"><strong>Business Address Information</strong></div>
+                <div class="slds-size_1-of-1"><hr class="slds-m-top_xx-small slds-m-bottom_x-small"></hr></div>
+                <div class="slds-size_1-of-1 slds-grid slds-wrap slds-box slds-gutters_direct slds-m-left_xxx-small slds-m-right_xx-small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_10-of-12">
+                        <label>Street</label>
+                        <abbr title="required" class="slds-required">*</abbr>
+                        <lightning-input label="Street" placeholder="Enter Street Address" variant="label-hidden" data-id="supplierStreetAddress" name='supplierStreetAddress'  onchange={handleChange} onkeyup={onKeyUp} required type="text" value={supplierStreetAddress}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-m-top_small">
+                        <label>City</label>
+                        <abbr title="required" class="slds-required">*</abbr>
+                        <lightning-input label="City" placeholder="Enter City" variant="label-hidden" data-id="supplierCity" name='supplierCity' onchange={handleChange} onkeyup={onKeyUp} required type="text" value={supplierCity}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-m-top_small">
+                        <div style="display:block;">
+                            <label>State</label>
+                            <abbr title="required" class="slds-required">*</abbr>
+                        </div>
+                        <select required name='usState' data-id='usState' class="slds-select" onchange={handleChange}>
+                            <option value="">Please Select</option>
+                            <option value="AL">Alabama (AL)</option>
+                            <option value="AK">Alaska (AK)</option>
+                            <option value="AZ">Arizona (AZ)</option>
+                            <option value="AR">Arkansas (AR)</option>
+                            <option value="CA">California (CA)</option>
+                            <option value="CO">Colorado (CO)</option>
+                            <option value="CT">Connecticut (CT)</option>
+                            <option value="DE">Delaware (DE)</option>
+                            <option value="DC">District Of Columbia (DC)</option>
+                            <option value="FL">Florida (FL)</option>
+                            <option value="GA">Georgia (GA)</option>
+                            <option value="HI">Hawaii (HI)</option>
+                            <option value="ID">Idaho (ID)</option>
+                            <option value="IL">Illinois (IL)</option>
+                            <option value="IN">Indiana (IN)</option>
+                            <option value="IA">Iowa (IA)</option>
+                            <option value="KS">Kansas (KS)</option>
+                            <option value="KY">Kentucky (KY)</option>
+                            <option value="LA">Louisiana (LA)</option>
+                            <option value="ME">Maine (ME)</option>
+                            <option value="MD">Maryland (MD)</option>
+                            <option value="MA">Massachusetts (MA)</option>
+                            <option value="MI">Michigan (MI)</option>
+                            <option value="MN">Minnesota (MN)</option>
+                            <option value="MS">Mississippi (MS)</option>
+                            <option value="MO">Missouri (MO)</option>
+                            <option value="MT">Montana (MT)</option>
+                            <option value="NE">Nebraska (NE)</option>
+                            <option value="NV">Nevada (NV)</option>
+                            <option value="NH">New Hampshire (NH)</option>
+                            <option value="NJ">New Jersey (NJ)</option>
+                            <option value="NM">New Mexico (NM)</option>
+                            <option value="NY">New York (NY)</option>
+                            <option value="NC">North Carolina (NC)</option>
+                            <option value="ND">North Dakota (ND)</option>
+                            <option value="OH">Ohio (OH)</option>
+                            <option value="OK">Oklahoma (OK)</option>
+                            <option value="OR">Oregon (OR)</option>
+                            <option value="PA">Pennsylvania (PA)</option>
+                            <option value="RI">Rhode Island (RI)</option>
+                            <option value="SC">South Carolina (SC)</option>
+                            <option value="SD">South Dakota (SD)</option>
+                            <option value="TN">Tennessee (TN)</option>
+                            <option value="TX">Texas (TX)</option>
+                            <option value="UT">Utah (UT)</option>
+                            <option value="VT">Vermont (VT)</option>
+                            <option value="VA">Virginia (VA)</option>
+                            <option value="WA">Washington (WA)</option>
+                            <option value="WV">West Virginia (WV)</option>
+                            <option value="WI">Wisconsin (WI)</option>
+                            <option value="WY">Wyoming (WY)</option>
+                        </select>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-m-top_small">
+                        <label>Postal Code</label>
+                        <abbr title="required" class="slds-required">*</abbr>
+                        <lightning-input label="Postal Code" placeholder="Enter Postal Code" variant="label-hidden" data-id="supplierPostalCode" name='supplierPostalCode' onchange={handleChange} onkeyup={onKeyUp} required type="text" value={supplierPostalCode}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-m-top_small">
+                        <div style="display:block;">
+                            <label>Country</label>
+                            <abbr title="required" class="slds-required">*</abbr>
+                        </div>
+                        <select required name="ddlcountry" data-id='ddlcountry' class="slds-select" onchange={handleChange}>
+                            <option value="">Please Select</option>
+                            <option value="US" selected>United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="AF">Afghanistan</option>
+                            <option value="AL">Albania</option>
+                            <option value="DZ">Algeria</option>
+                            <option value="AS">American Samoa</option>
+                            <option value="AD">Andorra</option>
+                            <option value="AO">Angola</option>
+                            <option value="AI">Anguilla</option>
+                            <option value="AQ">Antarctica</option>
+                            <option value="AG">Antigua and Barbuda</option>
+                            <option value="AR">Argentina</option>
+                            <option value="AM">Armenia</option>
+                            <option value="AW">Aruba</option>
+                            <option value="AU">Australia</option>
+                            <option value="AT">Austria</option>
+                            <option value="AZ">Azerbaijan</option>
+                            <option value="BS">Bahamas</option>
+                            <option value="BH">Bahrain</option>
+                            <option value="BD">Bangladesh</option>
+                            <option value="BB">Barbados</option>
+                            <option value="BY">Belarus</option>
+                            <option value="BE">Belgium</option>
+                            <option value="BZ">Belize</option>
+                            <option value="BJ">Benin</option>
+                            <option value="BM">Bermuda</option>
+                            <option value="BT">Bhutan</option>
+                            <option value="BO">Bolivia, Plurinational State of</option>
+                            <option value="BA">Bosnia and Herzegovina</option>
+                            <option value="BW">Botswana</option>
+                            <option value="BV">Bouvet Island</option>
+                            <option value="BR">Brazil</option>
+                            <option value="IO">British Indian Ocean Territory</option>
+                            <option value="BN">Brunei Darussalam</option>
+                            <option value="BG">Bulgaria</option>
+                            <option value="BF">Burkina Faso</option>
+                            <option value="BI">Burundi</option>
+                            <option value="KH">Cambodia</option>
+                            <option value="CM">Cameroon</option>
+                            <option value="CV">Cape Verde</option>
+                            <option value="KY">Cayman Islands</option>
+                            <option value="CF">Central African Republic</option>
+                            <option value="TD">Chad</option>
+                            <option value="CL">Chile</option>
+                            <option value="CN">China</option>
+                            <option value="CX">Christmas Island</option>
+                            <option value="CC">Cocos (Keeling) Islands</option>
+                            <option value="CO">Colombia</option>
+                            <option value="KM">Comoros</option>
+                            <option value="CG">Congo</option>
+                            <option value="CD">Congo, the Democratic Republic of the</option>
+                            <option value="CK">Cook Islands</option>
+                            <option value="CR">Costa Rica</option>
+                            <option value="CI">Côte d'Ivoire</option>
+                            <option value="HR">Croatia</option>
+                            <option value="CU">Cuba</option>
+                            <option value="CY">Cyprus</option>
+                            <option value="CZ">Czech Republic</option>
+                            <option value="DK">Denmark</option>
+                            <option value="DJ">Djibouti</option>
+                            <option value="DM">Dominica</option>
+                            <option value="DO">Dominican Republic</option>
+                            <option value="TP">East Timor</option>
+                            <option value="EC">Ecuador</option>
+                            <option value="EG">Egypt</option>
+                            <option value="SV">El Salvador</option>
+                            <option value="GQ">Equatorial Guinea</option>
+                            <option value="ER">Eritrea</option>
+                            <option value="EE">Estonia</option>
+                            <option value="ET">Ethiopia</option>
+                            <option value="FK">Falkland Islands (Malvinas)</option>
+                            <option value="FO">Faroe Islands</option>
+                            <option value="FJ">Fiji</option>
+                            <option value="FI">Finland</option>
+                            <option value="FR">France</option>
+                            <option value="GF">French Guiana</option>
+                            <option value="PF">French Polynesia</option>
+                            <option value="TF">French Southern Territories</option>
+                            <option value="GA">Gabon</option>
+                            <option value="GM">Gambia</option>
+                            <option value="GE">Georgia</option>
+                            <option value="DE">Germany</option>
+                            <option value="GH">Ghana</option>
+                            <option value="GI">Gibraltar</option>
+                            <option value="GR">Greece</option>
+                            <option value="GL">Greenland</option>
+                            <option value="GD">Grenada</option>
+                            <option value="GP">Guadeloupe</option>
+                            <option value="GU">Guam</option>
+                            <option value="GT">Guatemala</option>
+                            <option value="GN">Guinea</option>
+                            <option value="GW">Guinea-Bissau</option>
+                            <option value="GY">Guyana</option>
+                            <option value="HT">Haiti</option>
+                            <option value="HM">Heard Island and McDonald Islands</option>
+                            <option value="VA">Holy See (Vatican City State)</option>
+                            <option value="HN">Honduras</option>
+                            <option value="HK">Hong Kong</option>
+                            <option value="HU">Hungary</option>
+                            <option value="IS">Iceland</option>
+                            <option value="IN">India</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="IR">Iran, Islamic Republic of</option>
+                            <option value="IQ">Iraq</option>
+                            <option value="IE">Ireland</option>
+                            <option value="IL">Israel</option>
+                            <option value="IT">Italy</option>
+                            <option value="JM">Jamaica</option>
+                            <option value="JP">Japan</option>
+                            <option value="JO">Jordan</option>
+                            <option value="KZ">Kazakhstan</option>
+                            <option value="KE">Kenya</option>
+                            <option value="KI">Kiribati</option>
+                            <option value="KP">Korea, Democratic People's Republic of</option>
+                            <option value="KR">Korea, Republic of</option>
+                            <option value="KW">Kuwait</option>
+                            <option value="KG">Kyrgyzstan</option>
+                            <option value="LA">Lao People's Democratic Republic</option>
+                            <option value="LV">Latvia</option>
+                            <option value="LB">Lebanon</option>
+                            <option value="LS">Lesotho</option>
+                            <option value="LR">Liberia</option>
+                            <option value="LY">Libya</option>
+                            <option value="LI">Liechtenstein</option>
+                            <option value="LT">Lithuania</option>
+                            <option value="LU">Luxembourg</option>
+                            <option value="MO">Macao</option>
+                            <option value="MK">Macedonia, the former Yugoslav Republic of</option>
+                            <option value="MG">Madagascar</option>
+                            <option value="MW">Malawi</option>
+                            <option value="MY">Malaysia</option>
+                            <option value="MV">Maldives</option>
+                            <option value="ML">Mali</option>
+                            <option value="MT">Malta</option>
+                            <option value="MH">Marshall Islands</option>
+                            <option value="MQ">Martinique</option>
+                            <option value="MR">Mauritania</option>
+                            <option value="MU">Mauritius</option>
+                            <option value="YT">Mayotte</option>
+                            <option value="MX">Mexico</option>
+                            <option value="FM">Micronesia, Federated States of</option>
+                            <option value="MD">Moldova, Republic of</option>
+                            <option value="MC">Monaco</option>
+                            <option value="MN">Mongolia</option>
+                            <option value="MS">Montserrat</option>
+                            <option value="MA">Morocco</option>
+                            <option value="MZ">Mozambique</option>
+                            <option value="MM">Myanmar</option>
+                            <option value="NA">Namibia</option>
+                            <option value="NR">Nauru</option>
+                            <option value="NP">Nepal</option>
+                            <option value="NL">Netherlands</option>
+                            <option value="AN">Netherlands Antilles</option>
+                            <option value="NC">New Caledonia</option>
+                            <option value="NZ">New Zealand</option>
+                            <option value="NI">Nicaragua</option>
+                            <option value="NE">Niger</option>
+                            <option value="NG">Nigeria</option>
+                            <option value="NU">Niue</option>
+                            <option value="NF">Norfolk Island</option>
+                            <option value="MP">Northern Mariana Islands</option>
+                            <option value="NO">Norway</option>
+                            <option value="OM">Oman</option>
+                            <option value="PK">Pakistan</option>
+                            <option value="PW">Palau</option>
+                            <option value="PS">Palestinian Territory, Occupied</option>
+                            <option value="PA">Panama</option>
+                            <option value="PG">Papua New Guinea</option>
+                            <option value="PY">Paraguay</option>
+                            <option value="PE">Peru</option>
+                            <option value="PH">Philippines</option>
+                            <option value="PN">Pitcairn</option>
+                            <option value="PL">Poland</option>
+                            <option value="PT">Portugal</option>
+                            <option value="PR">Puerto Rico</option>
+                            <option value="QA">Qatar</option>
+                            <option value="RE">Réunion</option>
+                            <option value="RO">Romania</option>
+                            <option value="RU">Russian Federation</option>
+                            <option value="RW">Rwanda</option>
+                            <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+                            <option value="KN">Saint Kitts and Nevis</option>
+                            <option value="LC">Saint Lucia</option>
+                            <option value="PM">Saint Pierre and Miquelon</option>
+                            <option value="VC">Saint Vincent and the Grenadines</option>
+                            <option value="WS">Samoa</option>
+                            <option value="SM">San Marino</option>
+                            <option value="ST">Sao Tome and Principe</option>
+                            <option value="SA">Saudi Arabia</option>
+                            <option value="SN">Senegal</option>
+                            <option value="SC">Seychelles</option>
+                            <option value="SL">Sierra Leone</option>
+                            <option value="SG">Singapore</option>
+                            <option value="SK">Slovakia</option>
+                            <option value="SI">Slovenia</option>
+                            <option value="SB">Solomon Islands</option>
+                            <option value="SO">Somalia</option>
+                            <option value="ZA">South Africa</option>
+                            <option value="GS">South Georgia and the South Sandwich Islands</option>
+                            <option value="ES">Spain</option>
+                            <option value="LK">Sri Lanka</option>
+                            <option value="SD">Sudan</option>
+                            <option value="SR">Suriname</option>
+                            <option value="SJ">Svalbard and Jan Mayen</option>
+                            <option value="SZ">Swaziland</option>
+                            <option value="SE">Sweden</option>
+                            <option value="CH">Switzerland</option>
+                            <option value="SY">Syrian Arab Republic</option>
+                            <option value="TW">Taiwan, Province of China</option>
+                            <option value="TJ">Tajikistan</option>
+                            <option value="TZ">Tanzania, United Republic of</option>
+                            <option value="TH">Thailand</option>
+                            <option value="TG">Togo</option>
+                            <option value="TK">Tokelau</option>
+                            <option value="TO">Tonga</option>
+                            <option value="TT">Trinidad and Tobago</option>
+                            <option value="TN">Tunisia</option>
+                            <option value="TR">Turkey</option>
+                            <option value="TM">Turkmenistan</option>
+                            <option value="TC">Turks and Caicos Islands</option>
+                            <option value="TV">Tuvalu</option>
+                            <option value="UG">Uganda</option>
+                            <option value="UA">Ukraine</option>
+                            <option value="AE">United Arab Emirates</option>
+                            <option value="GB">United Kingdom</option>
+                            <option value="UM">United States Minor Outlying Islands</option>
+                            <option value="UY">Uruguay</option>
+                            <option value="UZ">Uzbekistan</option>
+                            <option value="VU">Vanuatu</option>
+                            <option value="VE">Venezuela, Bolivarian Republic of</option>
+                            <option value="VN">Viet Nam</option>
+                            <option value="VG">Virgin Islands, British</option>
+                            <option value="VI">Virgin Islands, U.S.</option>
+                            <option value="WF">Wallis and Futuna</option>
+                            <option value="EH">Western Sahara</option>
+                            <option value="YE">Yemen</option>
+                            <option value="YU">Yugoslavia</option>
+                            <option value="ZM">Zambia</option>
+                            <option value="ZW">Zimbabwe</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <template if:true={isModalOpen}>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-additionalInfoNeeded" class="slds-modal slds-fade-in-open slds-modal_large">
+                    <div class="slds-modal__container" style="max-width: 400px;">
+                        <div id="modal-content-id-additionalInfoNeeded">
+                            <div class="slds-modal__content slds-p-around_medium slds-size_1-of-1 slds-grid slds-wrap" style="max-height: 300px;">
+                                <div class="slds-size_3-of-4 slds-text-align_left slds-m-bottom_large">
+                                    <strong>A few more things...</strong>
+                                </div>
+                                <div class="slds-size_1-of-4 slds-text-align_right">
+                                    <lightning-button-icon icon-name="utility:close" variant="bare" alternative-text="Close" onclick={closeModal}></lightning-button-icon>
+                                </div>
+                                <div class="slds-m-bottom_x-large">We need some additional details to finish setting up your account.</div>
+                            </div>
+                            <footer class="slds-modal__footer">
+                                <button class="slds-button slds-button_brand" onclick={closeModal}>OK</button>
+                            </footer>
+                        </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+            <div if:true={showAdditionalInformation} class="slds-size_1-of-1 slds-grid slds-wrap slds-m-around_none">
+                <div class="slds-size_1-of-1 slds-text-align_left slds-m-top_large"><strong>Additional Information</strong></div>
+                <div class="slds-size_1-of-1"><hr class="slds-m-top_xx-small slds-m-bottom_x-small"></hr></div>
+                <div class="slds-size_1-of-1 slds-grid slds-wrap slds-box slds-gutters_direct slds-m-left_xxx-small slds-m-right_xx-small">
+                    <div if:false={showAdditionalInfoPostalCode} class="slds-col slds-size_1-of-1 slds-medium-size_10-of-12">
+                        <div class="slds-col slds-size_1-of-1">
+                            <label>Company Name</label>
+                            <abbr title="required" class="slds-required">*</abbr>
+                            <lightning-input label="Company Name" placeholder="Enter Company Name" variant="label-hidden" data-id="companyName" name='companyName'  onchange={handleChange} onkeyup={onKeyUp} required type="text" value={companyName}></lightning-input>
+                        </div>
+                    </div>
+                    <div if:true={showAdditionalInfoPostalCode} class="slds-col slds-grid slds-wrap slds-size_1-of-1 slds-medium-size_10-of-12">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12">
+                            <label>Company Name</label>
+                            <abbr title="required" class="slds-required">*</abbr>
+                            <lightning-input label="Company Name" placeholder="Enter Company Name" variant="label-hidden" data-id="companyName" name='companyName'  onchange={handleChange} onkeyup={onKeyUp} required type="text" value={companyName}></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-col_bump-left">
+                            <label>Postal Code</label>
+                            <abbr title="required" class="slds-required">*</abbr>
+                            <lightning-input label="Postal Code" placeholder="Enter Postal Code" variant="label-hidden" data-id="postalCode" name='postalCode' onchange={handleChange} onkeyup={onKeyUp} required type="text" value={postalCode}></lightning-input>
+                        </div>
+                    </div>
+                    <div if:true={supplierRadioButton} class="slds-col slds-size_10-of-12 slds-m-top_small">
+                        <label>Department</label>
+                        <abbr title="required" class="slds-required">*</abbr>
+                        <lightning-input label="Department" placeholder="Enter Department" variant="label-hidden" data-id="supplierDepartment" name='supplierDepartment'  onchange={handleChange} onkeyup={onKeyUp} required type="text" value={supplierDepartment}></lightning-input>
+                    </div>
+                    
+                    <div if:true={supplierRadioButton} class="slds-col slds-size_10-of-12 slds-m-top_small">
+                        <label>Title</label>
+                        <abbr title="required" class="slds-required">*</abbr>
+                        <lightning-input label="Title" placeholder="Enter Title" variant="label-hidden" data-id="supplierTitle" name='supplierTitle'  onchange={handleChange} onkeyup={onKeyUp} required type="text" value={supplierTitle}></lightning-input>
+                    </div>
+                </div>
+            </div>
+            
+            <!--AT-201/202 - New checkboxes for user consent-->
+            <div class="slds-size_1-of-1 slds-text-align_left slds-m-top_small slds-m-bottom_x-small consent-checkboxes">
+                <input type="checkbox" data-id="terms" name="authorize" onchange={handleChange} required></input>
+                <label for="terms" style="display: inline;" class="slds-form-element__label"> I agree to the&nbsp;
+                    <u><a href={termsOfUseURL} target="_blank" rel="noopener noreferrer">Terms of Use</a></u>
+                    &nbsp;and the&nbsp;
+                    <u><a href={privacyStatementURL} target="_blank" rel="noopener noreferrer">Privacy Statement</a></u>
+                    <abbr title="required" class="slds-required"> *</abbr>
+                </label>
+                <br>
+                <input type="checkbox" data-id="emails" name="emails" ></input>
+                <label for="emails" style="display: inline;" class="slds-form-element__label"> Sign up for MRC Global emails </label>
+            </div>
+            <div if:false={showAdditionalInformation} class="slds-size_1-of-1 slds-text-align_center slds-m-top_small">
+                <button onclick={handleUserSubmit} disabled={registerAccountButton} class="slds-button slds-button_brand slds-p-top_xx-small slds-p-bottom_xx-small slds-p-left_xx-large slds-p-right_xx-large">Register Account</button>
+            </div>
+            <div if:true={showAdditionalInformation} class="slds-size_1-of-1 slds-text-align_center slds-m-top_small">
+                <button onclick={handleSelfRegister} disabled={registerAccountButton} class="slds-button slds-button_brand slds-p-top_xx-small slds-p-bottom_xx-small slds-p-left_xx-large slds-p-right_xx-large">Register Account</button>
+            </div>
+            <div class="slds-size_1-of-1 slds-text-align_center slds-m-top_small slds-m-bottom_x-small">
+                Have Feedback? <a href="mailto:onlinesupport@mrcglobal.com">Click here</a>
+            </div>
+        </div>
+    </div>
+    <template if:false={recaptchaSubmitted}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-recaptcha" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <div id="modal-content-id-recaptcha">
+                    <iframe src={recaptchaUrl} width="320px" height="498px" style="border-width: 0px;" class="slds-align_absolute-center"></iframe>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+    <div class="selfRegContainer">
+        <!-- spinner -->
+        <div if:true={spinner}>
+            <!--Added by Rajdeep AT-182: changed the class from "demo-only" to "slds-is-fixed"-->
+            <div style="height:6rem">
+                <div class="slds-spinner_container" style="height: 70rem;">
+                    <div role="status" class="slds-spinner">
+                        <img src={loadingGifUrl} alt="Loading" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Waiting for Azure Response Message-->
+    <template if:true={connectingYouNow}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-connectingYouNow" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container" style="max-width: 500px;">
+                <div id="modal-content-id-connectingYouNow">
+                    <div class="slds-modal__content slds-p-around_large slds-size_1-of-1 slds-grid slds-wrap" style="max-height: 300px;">
+                        <div class="slds-size_1-of-1 slds-text-align_left slds-m-top_small slds-m-bottom_large slds-text-heading_medium slds-align_absolute-center">
+                            <strong>We’re connecting you now.</strong>
+                        </div>
+                        <div class="slds-size_1-of-1 slds-p-left_large slds-m-bottom_x-large slds-align_absolute-center">This process could take a few minutes. Feel free to wait here to be redirected or close this window. You will receive an email from our team momentarily.</div>
+                        <div class="slds-size_1-of-1 slds-align_absolute-center">
+                                        <img src={loadingGifUrl} alt="Loading" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!--International Contact Thank You Message-->
+    <template if:true={internationalThankYou}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-internationalThankYou" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container" style="max-width: 500px;">
+                <div id="modal-content-id-internationalThankYou">
+                    <div class="slds-modal__content slds-p-around_large slds-size_1-of-1 slds-grid slds-wrap" style="max-height: 300px;">
+                        <div class="slds-size_1-of-1 slds-text-align_left slds-m-top_small slds-m-bottom_large slds-text-heading_medium slds-align_absolute-center">
+                            <lightning-icon icon-name="utility:success" 
+                                alternative-text="Success!" 
+                                variant="success"
+                                class="successCheck slds-m-right_small"
+                                title="success variant"></lightning-icon>
+                            <strong>Success! Thank you for your interest MRC Global.</strong>
+                        </div>
+                        <div class="slds-size_1-of-1 slds-p-left_large slds-m-bottom_x-large">Our team is reviewing your registration and will reach out if any further information is required to finalize this process.</div>
+                        <div class="slds-size_1-of-1 slds-m-bottom_x-large slds-align_absolute-center"><strong>We appreciate your business and look forward to supporting your PVF needs!</strong></div>
+                        <div class="slds-size_1-of-1 slds-align_absolute-center"><button class="slds-button slds-button_brand" onclick={navigateHomePage}>Continue</button></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!--Contact Azure Link Not Returned-->
+    <template if:true={contactNoAzureLinkThankYou}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-contactNoAzureLinkThankYou" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container" style="max-width: 500px;">
+                <div id="modal-content-id-contactNoAzureLinkThankYou">
+                    <div class="slds-modal__content slds-p-around_large slds-size_1-of-1 slds-grid slds-wrap" style="max-height: 300px;">
+                        <div class="slds-size_1-of-1 slds-text-align_left slds-m-top_small slds-m-bottom_large slds-text-heading_medium slds-align_absolute-center">
+                            <lightning-icon icon-name="utility:success" 
+                                alternative-text="Success!" 
+                                variant="success"
+                                class="successCheck slds-m-right_small"
+                                title="success variant"></lightning-icon>
+                            <strong>Success! Thank you for registering with us.</strong>
+                        </div>
+                        <div class="slds-size_1-of-1 slds-p-left_large slds-m-bottom_x-large">Shortly, you should receive a welcome email from onlinesupport@mrcglobal.com containing the final steps of your registration process.</div>
+                        <div class="slds-size_1-of-1 slds-m-bottom_x-large slds-align_absolute-center"><strong>We appreciate your business and look forward to supporting your PVF needs!</strong></div>
+                        <div if:true = {federatedUser} class="slds-size_1-of-1 slds-align_absolute-center"><button class="slds-button slds-button_brand" onclick={navigateToLogin}>Sign In</button></div>
+                        <div if:false = {federatedUser} class="slds-size_1-of-1 slds-align_absolute-center"><button class="slds-button slds-button_brand" onclick={navigateHomePage}>Continue</button></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    
+    <!--Approved Contact and Azure Link Found-->
+    <template if:true={contactWithAzureLinkThankYou}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-federatedThankYou" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container" style="max-width: 500px;">
+                <div id="modal-content-id-contactWithAzureLinkThankYou">
+                    <div class="slds-modal__content slds-p-around_large slds-size_1-of-1 slds-grid slds-wrap" style="max-height: 300px;">
+                        <div class="slds-size_1-of-1 slds-text-align_left slds-m-top_small slds-m-bottom_large slds-text-heading_medium slds-align_absolute-center">
+                            <lightning-icon icon-name="utility:success" 
+                                alternative-text="Success!" 
+                                variant="success"
+                                class="successCheck slds-m-right_small"
+                                title="success variant"></lightning-icon>
+                            <strong>Success! Thank you for registering with us.</strong>
+                        </div>
+                        <div class="slds-size_1-of-1 slds-m-bottom_x-large slds-align_absolute-center"><strong>We appreciate your business and look forward to supporting your PVF needs!</strong></div>
+                        <div if:true = {federatedUser} class="slds-size_1-of-1 slds-align_absolute-center"><button class="slds-button slds-button_brand" onclick={navigateToLogin}>Sign In</button></div>
+                        <div if:false = {federatedUser} class="slds-size_1-of-1 slds-align_absolute-center"><button class="slds-button slds-button_brand" onclick={navigateHomePage}>Continue</button></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

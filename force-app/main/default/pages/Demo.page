@@ -1,0 +1,17 @@
+<apex:page sidebar="false" showheader="false" >
+    <h1>
+         Congratulations!!!!!!!!!!
+    </h1>
+    This is my first page.
+    
+    <apex:pageBlock title="First Block" >Pageblock_1
+        <apex:pageBlockSection title="Block Section 1 ">Sect_1</apex:pageBlockSection>
+        <apex:pageBlockSection title="Block Section 2 ">Sect_2</apex:pageBlockSection>
+        <apex:pageBlockSection title="Block Section 3 ">Sect_3</apex:pageBlockSection>
+        <apex:pageBlockSection title="Block Section 4 ">Sect_4</apex:pageBlockSection>
+    </apex:pageBlock>
+    
+  
+    
+    
+</apex:page>
