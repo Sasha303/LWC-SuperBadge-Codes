@@ -111,6 +111,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>boatMap</componentName>
+                <identifier>c_boatMap</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>similarBy</name>
                     <value>Type</value>
