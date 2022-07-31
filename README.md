@@ -14,16 +14,42 @@ Inside that folder create a file named "BoatMessageChannel.messageChannel-meta.x
 
 
 **Path 5:** Edit the LWC Component - boatSearchForm (update)
+
 **Path 6:** Edit the LWC Component - boatTile (update)
+
 **Path 7:** Edit the LWC Component - boatMap (update)
+
 **Path 8:** Create New LWC Component - boatsNearMe
+
 **Path 9:** Create New LWC Component - boatSearchResults
+
 **Path 10:** Create New LWC Component - boatSearch
+
 **Path 11:** Edit the LWC Component - fiveStarRating (update) - only Js
+
 **Path 12:** Create New LWC Component - boatAddReviewForm
+
 **Path 13:** Create New LWC Component - boatReviews
+
 **Path 14:** Create New LWC Component - boatDetailTabs
+
 **Path 15:** Create New LWC Component - SimiliarBoats
+
+**Path 16:** Build the Friend Ships Lightning Page with all the components
+create a Lightning page Setup >App Builder> New>Friend Ships --- to display the boatSearch, boatDetailTabs, and boatMap in a layout that follows all the presented requirements.
+
+Create a LightningApp -Friend Ships - Assign the lightning page to this application
+
+**Path 17:** Edit the Lightning Page - Boat Record Page
+
+**Path 18:** Quiz A,B,A,C,D,C,D,C,B,B
+
+**Path 19:** Quiz C,A,B,C,A,D,B,B,C,A
+
+
+
+
+
 
 
 
