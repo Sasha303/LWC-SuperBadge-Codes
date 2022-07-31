@@ -12,7 +12,9 @@ Inside that folder create a file named "BoatMessageChannel.messageChannel-meta.x
 
 **Path 4:** Open Apex class -  BoatDataService. Add @AuraEnabled(cacheable=true) above all the the methods except getAllReviews method - put just @AuraEnabled 
 
-**Path 5:**
+**Path 5:** Create New LWC form - boatSearchForm
+
+**Path 6:** Create new component - boatTile
 
 
 
